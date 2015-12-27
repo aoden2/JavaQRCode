@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:controller="com.uracer.racer.controller.MainUIController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="373.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8"
+      fx:controller="com.uracer.racer.controller.MainUIController">
    <children>
       <Button fx:id="btnOpen" layoutX="507.0" layoutY="43.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="82.0" text="..." />
       <Button fx:id="btnSave" layoutX="507.0" layoutY="97.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="82.0" text="Save" />
@@ -16,8 +19,8 @@
       <ImageView fx:id="imgPhoto" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0" layoutX="224.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imgWebcam" fitHeight="150.0" fitWidth="200.0" layoutX="399.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="87.0" layoutY="193.0" prefHeight="17.0" prefWidth="82.0" text="QRCode" />
-      <Label layoutX="293.0" layoutY="193.0" prefHeight="17.0" prefWidth="62.0" text="Picture" />
+      <Label layoutX="87.0" layoutY="193.0" prefHeight="17.0" prefWidth="82.0" text="Picture"/>
+      <Label layoutX="293.0" layoutY="193.0" prefHeight="17.0" prefWidth="62.0" text="QRCode"/>
       <Label layoutX="466.0" layoutY="193.0" prefHeight="17.0" prefWidth="82.0" text="Webcam" />
    </children>
 </Pane>

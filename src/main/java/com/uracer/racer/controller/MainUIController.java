@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 @Slf4j
 public class MainUIController implements javafx.fxml.Initializable {
 
+    protected static volatile File currentFile;
     @FXML
     protected Button btnOpen;
     @FXML
@@ -41,8 +42,6 @@ public class MainUIController implements javafx.fxml.Initializable {
     @FXML
     protected ImageView imgWebcam;
 
-    protected static volatile File currentFile;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -58,12 +57,12 @@ public class MainUIController implements javafx.fxml.Initializable {
             if (currentFile != null) {
 
                 try {
-                    if (Files.probeContentType(currentFile.toPath()) == "image/jpeg"
-                            || Files.probeContentType(currentFile.toPath()) == "image/png"
-                            || Files.probeContentType(currentFile.toPath()) == "image/bmp") {
+                    if (Files.probeContentType(currentFile.toPath()).equals("image/jpeg")
+                            || Files.probeContentType(currentFile.toPath()).equals("image/png")
+                            || Files.probeContentType(currentFile.toPath()).equals("image/bmp")) {
 
                         BufferedImage img = ImageIO.read(currentFile);
-                        imgPhoto.setImage(SwingFXUtils.toFXImage(img, new WritableImage(200, 150)));
+                        imgPhoto.setImage(SwingFXUtils.toFXImage(img, new WritableImage(200, 200)));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -7,12 +7,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 
 import javax.imageio.ImageIO;
-import javax.print.attribute.standard.Media;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +44,30 @@ public class MainUIController implements javafx.fxml.Initializable {
     protected ImageView imgQR;
     @FXML
     protected ImageView imgWebcam;
+    protected ApplicationContext context;
+    @Autowired
+    private Environment env;
+    @Autowired
+    private FTPClient ftpClient;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        btnSave.setOnAction(event -> {
+
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.disconnect();
+                }
+                ftpClient.connect(env.getProperty("ftp.url"));
+                if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())
+                        && ftpClient.login(env.getProperty("ftp.username"), env.getProperty("ftp.password"))) {
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         btnOpen.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();

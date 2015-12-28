@@ -1,12 +1,10 @@
 package com.uracer.racer;
 
-import javafx.fxml.FXML;
+import com.uracer.racer.controller.MainUIController;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,19 +17,24 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 public class Application extends javafx.application.Application {
 
+    private ApplicationContext context;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void init() throws Exception {
-        ApplicationContext context = SpringApplication.run(Application.class);
+        context = SpringApplication.run(Application.class);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("/UracerUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UracerUI.fxml"));
+        Parent parent = fxmlLoader.load();
+        MainUIController controller = fxmlLoader.getController();
+        context.getAutowireCapableBeanFactory().autowireBean(controller);
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
         primaryStage.show();

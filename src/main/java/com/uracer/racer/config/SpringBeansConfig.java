@@ -1,8 +1,12 @@
 package com.uracer.racer.config;
 
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPClientConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -17,6 +21,9 @@ import java.util.Arrays;
 
 @Configuration
 public class SpringBeansConfig {
+
+    @Autowired
+    private Environment env;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -39,5 +46,13 @@ public class SpringBeansConfig {
         PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
         configurer.setLocation(new ClassPathResource("application.properties"));
         return configurer;
+    }
+
+    @Bean
+    public FTPClient ftpClient() {
+
+        FTPClient ftp = new FTPClient();
+        FTPClientConfig ftpClientConfig = new FTPClientConfig();
+        return ftp;
     }
 }

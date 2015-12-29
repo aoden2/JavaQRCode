@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author khoi
- *         Simple QR code util compatibility with JavaFX
+ * Simple QR code util compatibility with JavaFX
  */
 public class QRUtils {
 
@@ -26,7 +26,9 @@ public class QRUtils {
         if (image == null) {
             return null;
         }
-        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(SwingFXUtils.fromFXImage(image, null))));
+        BinaryBitmap binaryBitmap = new
+                BinaryBitmap(new HybridBinarizer(new
+                BufferedImageLuminanceSource(SwingFXUtils.fromFXImage(image, null))));
         Result qrCodeResult = new MultiFormatReader().decode(binaryBitmap, hintMap);
         return Charset.forName(charset).encode(qrCodeResult.getText()).toString();
     }

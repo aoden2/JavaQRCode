@@ -25,26 +25,18 @@ public class BaseService {
     public synchronized OutputStream downloadFile(String fileName) throws Exception {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        executeFTPTask(new TaskExecutor<InputStream>() {
-            @Override
-            public void execute(InputStream... targets) throws Exception {
-                ftpClient.retrieveFile(fileName, outputStream);
-            }
-        });
+        executeFTPTask(targets -> ftpClient.retrieveFile(fileName, outputStream));
         return outputStream;
     }
 
     public synchronized void uploadFile(InputStream fileData, String fileName) throws Exception {
 
-        executeFTPTask(new TaskExecutor<InputStream>() {
-            @Override
-            public void execute(InputStream... targets) throws Exception {
-                if (!ArrayUtils.isEmpty(targets)) {
-                    InputStream is = targets[0];
-                    ftpClient.storeFile(fileName, is);
-                } else {
-                    ftpClient.storeFile(fileName, fileData);
-                }
+        executeFTPTask(targets -> {
+            if (!ArrayUtils.isEmpty(targets)) {
+                InputStream is = (InputStream) targets[0];
+                ftpClient.storeFile(fileName, is);
+            } else {
+                ftpClient.storeFile(fileName, fileData);
             }
         });
     }

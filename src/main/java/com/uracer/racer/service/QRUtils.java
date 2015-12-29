@@ -10,11 +10,6 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.apache.commons.lang3.CharEncoding;
-import org.apache.commons.lang3.CharSet;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.nio.charset.Charset;

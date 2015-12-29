@@ -56,14 +56,6 @@ public class MainUIController implements javafx.fxml.Initializable {
         btnSave.setOnAction(event -> {
 
             try {
-                if (ftpClient.isConnected()) {
-                    ftpClient.disconnect();
-                }
-                ftpClient.connect(env.getProperty("ftp.url"));
-                if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())
-                        && ftpClient.login(env.getProperty("ftp.username"), env.getProperty("ftp.password"))) {
-
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>Picture</td>
-        <td><img src="$text"></td>
+        <td><img src="$image"></td>
     </tr>
     <tr>
         <td>QRCode</td>

@@ -2,9 +2,8 @@ package com.uracer.racer.controller;
 
 import com.uracer.racer.service.BaseService;
 import com.uracer.racer.service.QRUtils;
+import javafx.application.HostServices;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -32,6 +31,7 @@ import java.util.ResourceBundle;
 public class MainUIController implements javafx.fxml.Initializable {
 
     protected static volatile File currentFile;
+    protected HostServices hostServices;
     @FXML
     protected Button btnOpen;
     @FXML
@@ -59,10 +59,14 @@ public class MainUIController implements javafx.fxml.Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        btnPrint.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        btnPrint.setOnAction(event -> {
 
+            try {
+                URL url = new File(BaseService.PATH_HTML).toURI().toURL();
+                baseService.renderWebPage(imgPhoto.getImage(), imgQR.getImage(), txtText.getText(), txtId.getId());
+                hostServices.showDocument(url.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 

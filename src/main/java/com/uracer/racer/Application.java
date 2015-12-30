@@ -2,7 +2,6 @@ package com.uracer.racer;
 
 import com.uracer.racer.controller.MainUIController;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,6 +33,7 @@ public class Application extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UracerUI.fxml"));
         Parent parent = fxmlLoader.load();
         MainUIController controller = fxmlLoader.getController();
+        controller.setHostServices(getHostServices());
         context.getAutowireCapableBeanFactory().autowireBean(controller);
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);

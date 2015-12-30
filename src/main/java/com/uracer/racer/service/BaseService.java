@@ -141,7 +141,7 @@ public class BaseService {
                     return result.getText();
                 }
             } catch (NotFoundException e) {
-                // fall thru, it means there is no QR code in image
+                // it means there is no QR code in image
                 e.printStackTrace();
             }
         }

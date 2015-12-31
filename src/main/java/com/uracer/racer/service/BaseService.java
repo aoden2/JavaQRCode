@@ -17,11 +17,14 @@ import net.lingala.zip4j.util.Zip4jConstants;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -36,6 +39,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,12 +59,21 @@ public class BaseService {
     @Autowired
     private FTPClient ftpClient;
 
-    public void renderWebPage(Image image, Image qr, String text, String id) throws IOException, ZipException {
+    public void renderWebPage(Image image, Image qr, String text, String id) throws IOException, ZipException, URISyntaxException {
 
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.init();
+        velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         URL url = getClass().getClassLoader().getResource("template.vm");
-        Template template = velocityEngine.getTemplate(url.getPath());
+
+        String path = url.toURI().toString();
+        if (SystemUtils.IS_OS_WINDOWS) {
+            path = path.substring(1);
+            path = path.replace("/", "\\");
+        }
+
+        Template template = velocityEngine.getTemplate(path);
         template.initDocument();
 
         buildZipFile(getStreamFromImage(image), text, id);
@@ -68,15 +81,15 @@ public class BaseService {
         Map<String, String> valueMap = new HashMap<>();
         valueMap.put("id", id);
         valueMap.put("text", text);
-        valueMap.put("image", saveImagetoLocal(image, PATH_IMAGE));
-        valueMap.put("qr", saveImagetoLocal(qr, PATH_QR_IMAGE));
+        valueMap.put("image", saveImageToLocal(image, PATH_IMAGE));
+        valueMap.put("qr", saveImageToLocal(qr, PATH_QR_IMAGE));
         VelocityContext velocityContext = new VelocityContext(valueMap);
         template.merge(velocityContext, writer);
         writer.flush();
         writer.close();
     }
 
-    private String saveImagetoLocal(Image image, String path) throws IOException {
+    private String saveImageToLocal(Image image, String path) throws IOException {
 
         InputStream is = getStreamFromImage(image);
         FileUtils.writeByteArrayToFile(new File(path), IOUtils.toByteArray(is));

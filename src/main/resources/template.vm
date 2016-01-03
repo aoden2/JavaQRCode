@@ -8,7 +8,7 @@
 <table>
     <tr>
         <td>ID</td>
-        <td><$id</td>
+        <td>$id</td>
     </tr>
     <tr>
         <td>Text</td>
@@ -16,11 +16,11 @@
     </tr>
     <tr>
         <td>Picture</td>
-        <td><img src="$image"></td>
+        <td><img src="$image" width="200" height="200"></td>
     </tr>
     <tr>
         <td>QRCode</td>
-        <td><img src="$qr"></td>
+        <td><img src="$qr" width="200" height="200"></td>
     </tr>
 </table>
 </body>

@@ -1,6 +1,6 @@
 package com.uracer.racer.service;
 
-public interface TaskExecutor<E> {
+public interface TaskExecutor<E, V> {
 
-    void execute(E... targets) throws Exception;
+    V execute(E... targets) throws Exception;
 }

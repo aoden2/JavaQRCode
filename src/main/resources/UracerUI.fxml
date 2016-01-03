@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="373.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8"
       fx:controller="com.uracer.racer.controller.MainUIController">
@@ -22,5 +20,6 @@
       <Label layoutX="87.0" layoutY="193.0" prefHeight="17.0" prefWidth="82.0" text="Picture"/>
       <Label layoutX="293.0" layoutY="193.0" prefHeight="17.0" prefWidth="62.0" text="QRCode"/>
       <Label layoutX="466.0" layoutY="193.0" prefHeight="17.0" prefWidth="82.0" text="Webcam" />
+      <Label fx:id="lbStatus" layoutX="24.0" layoutY="6.0" prefHeight="17.0" prefWidth="125.0" text=""/>
    </children>
 </Pane>

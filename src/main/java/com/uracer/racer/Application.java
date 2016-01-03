@@ -1,22 +1,21 @@
 package com.uracer.racer;
 
+import com.uracer.racer.config.SpringBeansConfig;
 import com.uracer.racer.controller.MainUIController;
+import com.uracer.racer.service.BaseService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-@SpringBootApplication
-@ComponentScan(basePackages = "com.uracer.racer")
-@EnableAutoConfiguration
 public class Application extends javafx.application.Application {
 
     private ApplicationContext context;
+    @Autowired
+    private BaseService baseService;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,12 +23,15 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void init() throws Exception {
-        context = SpringApplication.run(Application.class);
+        context = new AnnotationConfigApplicationContext(SpringBeansConfig.class);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UracerUI.fxml"));
         Parent parent = fxmlLoader.load();
         MainUIController controller = fxmlLoader.getController();

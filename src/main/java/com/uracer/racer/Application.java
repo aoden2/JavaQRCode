@@ -7,9 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Application extends javafx.application.Application {
 
@@ -30,7 +34,13 @@ public class Application extends javafx.application.Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setOnCloseRequest(event -> {
-            System.exit(0);
+            try {
+                FileUtils.cleanDirectory(new File(BaseService.TEMP_DIR));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                System.exit(0);
+            }
         });
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UracerUI.fxml"));
         Parent parent = fxmlLoader.load();
@@ -41,4 +51,4 @@ public class Application extends javafx.application.Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-}
+    }

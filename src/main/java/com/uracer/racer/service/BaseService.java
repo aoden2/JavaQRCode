@@ -31,7 +31,15 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +64,10 @@ public class BaseService {
 
     public static void readQRCodeFromCamera(ImageView imageView, Subscriber subscriber) {
 
-        if (!webcam.isOpen()) {
+        if (webcam == null) {
+            webcam = Webcam.getDefault();
+        }
+        if (webcam != null && !webcam.isOpen()) {
 
             webcam.open();
         }
